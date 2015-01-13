@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Tutorial: http://jamesonquave.com/blog/developing-ios-apps-using-swift-part-3-best-practices/ 
+// See: http://jamesonquave.com/blog/developing-ios-apps-using-swift-part-3-best-practices/
 
 protocol APIControllerProtocol {
     func didReceiveAPIResults (results: NSDictionary)
@@ -67,53 +67,6 @@ class APIController {
     func lookupAlbum(collectionId: Int) {
         get("https://itunes.apple.com/lookup?id=\(collectionId)&entity=song")
     }
-    
-    
-    // ------ OLD code below ----
-    func OLDsearchItunesForOLD (searchTerm: String) {
-        
-        // iTunes wants multiple search terms separated by '+', so replace ' ' by '+'
-        let itunesSearchTerm = searchTerm.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-        
-        if let escapedSearchTerm = itunesSearchTerm.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding) {
-            // ***  OLD *** // let urlPath = "http://itunes.apple.com/search?term=\(escapedSearchTerm)&media=software"
-            
-            // Search for Music Albums
-            // let urlPath = "https://itunes.apple.com/search?term=\(escapedSearchTerm)&media=music&entity=album"
-            
-            let urlPath = "https://itunes.apple.com/search?term=\(escapedSearchTerm)&media=music&entity=album"
-            println("--> urlPath: \(urlPath)")
-            
-            let url:NSURL = NSURL(string: urlPath)!
-            let session = NSURLSession.sharedSession()
-            
-            let task = session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
-                println("Task completed")
-                if (error != nil) {
-                    println(error.description)
-                    println(error.localizedDescription)
-                    
-                }
-                var err: NSError?
-                
-                var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as NSDictionary
-                if (err != nil) {
-                    // error parsing
-                    println("Error parsing JSON: \(err!.description)")
-                }
-                let results: NSArray = jsonResult["results"] as NSArray
-                
-                // load the UI
-                self.delegate.didReceiveAPIResults(jsonResult)
-                
-            })
-            
-            task.resume()
-            
-        } // end if
-        
-    } // end searchItunesFor()
-
     
     
 }

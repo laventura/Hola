@@ -11,7 +11,7 @@ import QuartzCore
 
 class SearchResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, APIControllerProtocol {
     
-    // See source in http://jamesonquave.com/blog/developing-ios-apps-using-swift-tutorial-part-2/
+    // See example in http://jamesonquave.com/blog/developing-ios-apps-using-swift-tutorial-part-2/
 
     @IBOutlet weak var appsTableView: UITableView!
     
@@ -47,72 +47,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
     // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
     
-//    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//
-//        // use cell prototype - so that it is memory efficient and leads to better scrolling
-//        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as UITableViewCell
-//                
-//        /// let rowData: NSDictionary = self.tableData[indexPath.row] as NSDictionary
-//        let album = self.albums[indexPath.row]
-//        
-//        cell.textLabel?.text = album.title
-//        
-//        // load a blank image
-//        cell.imageView?.image = UIImage(named: "Blank52")
-//        
-//        // get formatted price
-//        let formattedPrice: NSString = album.price
-//        cell.detailTextLabel?.text = formattedPrice
-//
-//        
-//        // grab artworkUrl60 to get an image URL for the apps' thumbnail
-//        //let urlString: String = rowData["artworkUrl60"] as NSString
-//        
-//        let urlString = album.thumbnailImageURL
-//        
-//        
-//        // ** See explanation in: http://jamesonquave.com/blog/developing-ios-apps-using-swift-part-5-async-image-loading-and-caching/
-//        
-//        // check our cache for existing images; this is just a Dict for UIImages
-//        var image = self.imageCache[urlString]
-//        
-//        if image == nil {
-//            // download the image (IN A BACKGROUND THREAD) if it does not exist in our cache
-//            let imgUrl: NSURL? = NSURL(string: urlString)
-//            
-//            //download NSData rep of the image at the URL
-//            let request: NSURLRequest = NSURLRequest(URL: imgUrl!)
-//            NSURLConnection.sendAsynchronousRequest(request,
-//                queue: NSOperationQueue.mainQueue(),
-//                completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-//                    if (error == nil) {
-//                        image = UIImage(data: data)
-//                        // store image to our cache
-//                        self.imageCache[urlString] = image
-//                        
-//                        // set the cell image on the UI (main) thread
-//                        dispatch_async(dispatch_get_main_queue(), {
-//                            if let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) {
-//                                cellToUpdate.imageView?.image = image
-//                            }
-//                        })
-//                    } else {
-//                        println("Error while downloading image: \(error.localizedDescription)")
-//                    }
-//                })
-// 
-//        }
-//        else {   // image already exists in our cache; simply set the cell's image on the main UI thread
-//            dispatch_async(dispatch_get_main_queue(), {
-//                if let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) {
-//                    cellToUpdate.imageView?.image = image
-//                }
-//            })
-//        }
-//        
-//        
-//        return cell
-//    }
+
     
     // ** See explanation in: http://jamesonquave.com/blog/developing-ios-apps-using-swift-part-5-async-image-loading-and-caching/
     
@@ -201,23 +136,6 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
             cell.layer.transform = CATransform3DMakeScale(1,1,1)
         })
     }
-
-    
-//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        // grab the row at indexPAth
-//        var rowData: NSDictionary   = self.tableData[indexPath.row] as NSDictionary
-//        
-//        var name: String            = rowData["trackName"] as String
-//        var formattedPrice: String  = rowData["formattedPrice"] as String
-//        
-//        var alert: UIAlertView = UIAlertView()
-//        alert.title     = name
-//        alert.message   = formattedPrice
-//        alert.addButtonWithTitle("OK")
-//        alert.show()
-//    }
-    
-
 
 
 }
